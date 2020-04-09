@@ -1,7 +1,10 @@
 package com.ppe;
 
+import com.ppe.fiche.Fiche;
 import com.ppe.tabpane.Tabs;
 import com.ppe.user.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -18,24 +21,9 @@ public class FichePage {
 
     //get tableview from FXML
     @FXML
-    private TableView ficheTable;
+    private TableView<Fiche> ficheTable;
 
-    //get table column from FXML
-    @FXML
-    private TableColumn fraisforfaitaire;
-    @FXML
-    private TableColumn autrefrais;
-
-    //create sub column for fraisforfaitaire
-    private TableColumn nom = new TableColumn<>("nom");
-    private TableColumn quantite = new TableColumn<>("quantite");
-    private TableColumn montantForfait = new TableColumn<>("montant");
-    private TableColumn total = new TableColumn<>("total");
-
-    //create sub column for autrefrais
-    private TableColumn date = new TableColumn<>("date");
-    private TableColumn libelle = new TableColumn<>("libelle");
-    private TableColumn montantAutre = new TableColumn<>("montant");
+    private ObservableList<Fiche> FicheData = FXCollections.observableArrayList();
 
     private User user;
     private Tabs tabs;
@@ -51,12 +39,6 @@ public class FichePage {
         tabList.add(tab2);
         tabs.setTabs(tabList);
 
-        //set subColumn for fraisforfaitaire
-        fraisforfaitaire.getColumns().addAll(nom, quantite, montantForfait, total);
-
-        //set subColumn for autrefrais
-        autrefrais.getColumns().addAll(date, libelle, montantAutre);
-
     }
 
     //init when the tab is selected
@@ -65,7 +47,8 @@ public class FichePage {
 
         if (tab2.isSelected()) {
 
-
+            ficheTable.getItems().clear();
+            ficheTable.getItems().addAll(Context.getInstance().getDatabase().getFiche());
 
         }
 

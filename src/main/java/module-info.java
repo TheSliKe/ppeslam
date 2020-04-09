@@ -5,5 +5,6 @@ module com.ppe {
     requires mysql.connector.java;
 
     opens com.ppe to javafx.fxml;
+    opens com.ppe.fiche to javafx.base;
     exports com.ppe;
 }

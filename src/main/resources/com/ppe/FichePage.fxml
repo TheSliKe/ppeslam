@@ -14,20 +14,16 @@
             <TableView fx:id="ficheTable" layoutX="20" layoutY="20" prefHeight="700.0" prefWidth="1240.0">
                 <columns>
 
-                    <TableColumn text="Nom">
-                        <cellValueFactory><PropertyValueFactory property="nom"/></cellValueFactory>
+                    <TableColumn fx:id="matricule" text="Matricule de fiche">
+                        <cellValueFactory><PropertyValueFactory property="matricule"/></cellValueFactory>
                     </TableColumn>
 
-                    <TableColumn  text="Prenom">
-                        <cellValueFactory><PropertyValueFactory property="prenom"/></cellValueFactory>
+                    <TableColumn fx:id="etat" text="Etat de la fiche">
+                        <cellValueFactory><PropertyValueFactory property="etat"/></cellValueFactory>
                     </TableColumn>
 
-                    <TableColumn fx:id="fraisforfaitaire" text="fraisforfaitaire">
-
-                    </TableColumn>
-
-                    <TableColumn fx:id="autrefrais" text="autrefrais">
-
+                    <TableColumn fx:id="date" text="Date">
+                        <cellValueFactory><PropertyValueFactory property="date"/></cellValueFactory>
                     </TableColumn>
 
                 </columns>

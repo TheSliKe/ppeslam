@@ -1,6 +1,9 @@
 package com.ppe;
 
+import com.ppe.fiche.Fiche;
 import com.ppe.user.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 
@@ -50,6 +53,36 @@ public class Database {
 
         return false;
 
+    }
+
+    public ObservableList<Fiche> getFiche(){
+
+        ObservableList<Fiche> FicheData = FXCollections.observableArrayList();
+
+        User user = Context.getInstance().getUser();
+
+        String sql = "SELECT a.id_fiche, c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.fk_id_compte=" + user.getIdCompte() +";";
+        Statement statement = null;
+
+        try {
+            statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()){
+
+                FicheData.add(new Fiche(result.getString(1),result.getString(2), result.getString(3)));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        return FicheData;
     }
 
     //this method is call for set user info from DB in user Object
