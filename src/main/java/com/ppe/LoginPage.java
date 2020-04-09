@@ -2,10 +2,19 @@ package com.ppe;
 
 import com.ppe.tabpane.Tabs;
 import com.ppe.user.User;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.sql.*;
 import java.util.List;
@@ -50,7 +59,20 @@ public class LoginPage {
 
             updateDisplay();
         } else {
-            System.out.println("error");
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            VBox dialogVbox = new VBox(20);
+            dialogVbox.getChildren().add(new Text("Nom d'utilisateur ou Mot de passe incorrect"));
+            Button ok = new Button("Ok");
+            ok.setOnAction(new EventHandler<ActionEvent>() {
+                @Override public void handle(ActionEvent e) {
+                   dialog.hide();
+                }
+            });
+            dialogVbox.getChildren().add(ok);
+            Scene dialogScene = new Scene(dialogVbox);
+            dialog.setScene(dialogScene);
+            dialog.show();
         }
 
     }

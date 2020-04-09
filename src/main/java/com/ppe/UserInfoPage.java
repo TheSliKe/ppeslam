@@ -49,6 +49,8 @@ public class UserInfoPage {
     //method to set user info in listview
     private void setListView() {
 
+        listView.getItems().clear();
+
         listView.getItems().add(user.getName());
         listView.getItems().add(user.getLastname());
         listView.getItems().add(user.getAdresse());
