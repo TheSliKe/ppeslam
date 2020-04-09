@@ -2,31 +2,26 @@ package com.ppe;
 
 import com.ppe.tabpane.Tabs;
 import com.ppe.user.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
-
-import java.sql.*;
 import java.util.List;
-import java.util.Set;
 
 public class UserInfoPage {
 
+    //get this tab from FXML
+    @FXML
+    private Tab tab3;
+    //get ListView from FXML
     @FXML
     private ListView listView;
 
-    @FXML
-    private Tab tab3;
-
+    //local instance for user and tabs
     private User user;
     private Tabs tabs;
 
+    //main init from app
     @FXML
     public void initialize() {
 
@@ -39,20 +34,26 @@ public class UserInfoPage {
 
     }
 
+    //init when the tab is selected
     @FXML
     void event(Event ev) {
+
         if (tab3.isSelected()) {
-            System.out.println("Tab 3 is Selected");
 
             setListView();
+
         }
+
     }
 
+    //method to set user info in listview
     private void setListView() {
+
         listView.getItems().add(user.getName());
         listView.getItems().add(user.getLastname());
         listView.getItems().add(user.getAdresse());
         listView.getItems().add(user.getBirthdate());
+
     }
 
 }

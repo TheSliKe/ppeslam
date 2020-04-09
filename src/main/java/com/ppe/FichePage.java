@@ -12,23 +12,27 @@ import java.util.List;
 
 public class FichePage {
 
+    //get this tab
     @FXML
     private Tab tab2;
 
+    //get tableview from FXML
     @FXML
     private TableView ficheTable;
 
+    //get table column from FXML
     @FXML
     private TableColumn fraisforfaitaire;
-
     @FXML
     private TableColumn autrefrais;
 
+    //create sub column for fraisforfaitaire
     private TableColumn nom = new TableColumn<>("nom");
     private TableColumn quantite = new TableColumn<>("quantite");
     private TableColumn montantForfait = new TableColumn<>("montant");
     private TableColumn total = new TableColumn<>("total");
 
+    //create sub column for autrefrais
     private TableColumn date = new TableColumn<>("date");
     private TableColumn libelle = new TableColumn<>("libelle");
     private TableColumn montantAutre = new TableColumn<>("montant");
@@ -36,6 +40,7 @@ public class FichePage {
     private User user;
     private Tabs tabs;
 
+    //main init from app
     @FXML
     public void initialize() {
 
@@ -46,18 +51,24 @@ public class FichePage {
         tabList.add(tab2);
         tabs.setTabs(tabList);
 
+        //set subColumn for fraisforfaitaire
         fraisforfaitaire.getColumns().addAll(nom, quantite, montantForfait, total);
+
+        //set subColumn for autrefrais
         autrefrais.getColumns().addAll(date, libelle, montantAutre);
 
     }
 
+    //init when the tab is selected
     @FXML
     void event(Event ev) {
+
         if (tab2.isSelected()) {
-            System.out.println("Tab 2 is Selected");
+
 
 
         }
+
     }
 
 }

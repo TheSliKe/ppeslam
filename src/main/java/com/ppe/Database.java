@@ -6,17 +6,18 @@ import java.sql.*;
 
 public class Database {
 
-    //change to jdbc:mysql://ppeslam.ddns.net/ppeslam if not in local
-    private final String URL = "jdbc:mysql://192.168.1.43:3306/ppeslam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    //database connection
+    private final String URL = "jdbc:mysql://ppeslam.ddns.net/ppeslam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private final String USERNAME = "ppe";
     private final String PASSWORD = "slamppe";
 
+    //global connection for database
     private Connection conn;
 
     public Database(){
 
-
         try {
+            //create the connection
             conn  = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -24,24 +25,22 @@ public class Database {
 
     }
 
+    //login method that return true if entry exist in DB for that username and password
     public boolean login(String username, String password){
-
-        boolean reponse = false;
-
 
         String sql = "select count(*) FROM compte WHERE identifiant=\"" + username + "\" and mot_de_passe=\"" + password + "\";";
         Statement statement = null;
-        try {
-            statement = conn.createStatement();
 
+        try {
+
+            statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
             while (result.next()){
                 int res = result.getInt(1);
 
-                if(res == 1){
-                    reponse = true;
-                }
+                if(res == 1)
+                    return true;
 
             }
 
@@ -49,10 +48,11 @@ public class Database {
             e.printStackTrace();
         }
 
-        return reponse;
+        return false;
 
     }
 
+    //this method is call for set user info from DB in user Object
     public void infoUser(){
 
         User user = Context.getInstance().getUser();

@@ -50,7 +50,7 @@ public class LoginPage {
 
             updateDisplay();
         } else {
-            System.out.println();
+            System.out.println("error");
         }
 
     }
