@@ -31,6 +31,7 @@ public class MainPage {
         //remove tab for log-in
         tablePane.getTabs().remove(tabList.get(1));
         tablePane.getTabs().remove(tabList.get(2));
+        tablePane.getTabs().remove(tabList.get(3));
 
 
     }
@@ -45,6 +46,7 @@ public class MainPage {
         tablePane.getTabs().add(tabList.get(0));
         tablePane.getTabs().remove(tabList.get(1));
         tablePane.getTabs().remove(tabList.get(2));
+        tablePane.getTabs().remove(tabList.get(3));
 
     }
 

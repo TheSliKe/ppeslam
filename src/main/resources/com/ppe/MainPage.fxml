@@ -28,6 +28,8 @@
 
                   <fx:include source="FichePage.fxml"></fx:include>
 
+                  <fx:include source="SaisieFrais.fxml"></fx:include>
+
                   <fx:include source="UserInfoPage.fxml"></fx:include>
 
               </tabs>

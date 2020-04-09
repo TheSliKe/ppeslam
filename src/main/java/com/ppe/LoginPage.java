@@ -61,6 +61,7 @@ public class LoginPage {
         tabs.getTabPane().getTabs().remove(tabs.getTabs().get(0));
         tabs.getTabPane().getTabs().add(tabs.getTabs().get(1));
         tabs.getTabPane().getTabs().add(tabs.getTabs().get(2));
+        tabs.getTabPane().getTabs().add(tabs.getTabs().get(3));
 
     }
 
