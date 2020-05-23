@@ -10,7 +10,7 @@ import java.sql.*;
 public class Database {
 
     //database connection
-    private final String URL = "jdbc:mysql://ppeslam.ddns.net/ppeslam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private final String URL = "jdbc:mysql://juliendupale.ddns.net/ppeslam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private final String USERNAME = "ppe";
     private final String PASSWORD = "slamppe";
 
