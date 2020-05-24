@@ -1,6 +1,8 @@
 package com.ppe;
 
+import com.ppe.fiche.EtatFiche;
 import com.ppe.fiche.Fiche;
+import com.ppe.fiche.FraisForfaitaire.*;
 import com.ppe.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,7 +63,7 @@ public class Database {
 
         User user = Context.getInstance().getUser();
 
-        String sql = "SELECT a.id_fiche, c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.fk_id_compte=" + user.getIdCompte() +";";
+        String sql = "SELECT a.id_fiche, (SELECT count(*) FROM etat_de_fiche as b WHERE a.id_fiche=b.id_fiche) as nbetat FROM fiche as a WHERE fk_id_compte=" + user.getIdCompte() + ";";
         Statement statement = null;
 
         try {
@@ -71,7 +73,111 @@ public class Database {
 
             while (result.next()){
 
-                FicheData.add(new Fiche(result.getString(1),result.getString(2), result.getString(3)));
+                System.out.println(result.getString(1) + result.getInt(2));
+
+
+                if (result.getInt(2) == 1){
+
+                    String sql2 = "SELECT a.id_fiche, c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.fk_id_compte=" + user.getIdCompte() +" and a.id_fiche=" + result.getInt(1) +";";
+                    Statement statement2 = null;
+
+                    try {
+                        statement2 = conn.createStatement();
+
+                        ResultSet result2 = statement2.executeQuery(sql2);
+
+                        while (result2.next()){
+
+                            FicheData.add(new Fiche(result2.getString(1),result2.getString(2), result2.getString(3)));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if (result.getInt(2) == 2) {
+
+                    String sql2 = "SELECT a.id_fiche, c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.fk_id_compte=" + user.getIdCompte() +" and a.id_fiche=" + result.getInt(1) +" and a.id_etat=2 ;";
+                    Statement statement2 = null;
+
+                    try {
+                        statement2 = conn.createStatement();
+
+                        ResultSet result2 = statement2.executeQuery(sql2);
+
+                        while (result2.next()){
+
+                            FicheData.add(new Fiche(result2.getString(1),result2.getString(2), result2.getString(3)));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                }else if (result.getInt(2) == 3) {
+
+                    String sql2 = "SELECT a.id_fiche, c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.fk_id_compte=" + user.getIdCompte() +" and a.id_fiche=" + result.getInt(1) +" and a.id_etat=3 ;";
+                    Statement statement2 = null;
+
+                    try {
+                        statement2 = conn.createStatement();
+
+                        ResultSet result2 = statement2.executeQuery(sql2);
+
+                        while (result2.next()){
+
+                            FicheData.add(new Fiche(result2.getString(1),result2.getString(2), result2.getString(3)));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                }else if (result.getInt(2) == 4) {
+
+                    String sql2 = "SELECT a.id_fiche, c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.fk_id_compte=" + user.getIdCompte() +" and a.id_fiche=" + result.getInt(1) +" and a.id_etat=4 ;";
+                    Statement statement2 = null;
+
+                    try {
+                        statement2 = conn.createStatement();
+
+                        ResultSet result2 = statement2.executeQuery(sql2);
+
+                        while (result2.next()){
+
+                            FicheData.add(new Fiche(result2.getString(1),result2.getString(2), result2.getString(3)));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                }else if (result.getInt(2) == 5) {
+
+                    String sql2 = "SELECT a.id_fiche, c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.fk_id_compte=" + user.getIdCompte() +" and a.id_fiche=" + result.getInt(1) +" and a.id_etat=5 ;";
+                    Statement statement2 = null;
+
+                    try {
+                        statement2 = conn.createStatement();
+
+                        ResultSet result2 = statement2.executeQuery(sql2);
+
+                        while (result2.next()){
+
+                            FicheData.add(new Fiche(result2.getString(1),result2.getString(2), result2.getString(3)));
+
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
 
             }
 
@@ -81,9 +187,125 @@ public class Database {
 
 
 
-
+        System.out.println(FicheData.size());
         return FicheData;
     }
+
+
+    public Fiche getOneFiche(int numFiche){
+
+        Fiche fiche = null;
+
+        User user = Context.getInstance().getUser();
+
+        String sql = "SELECT a.id_fiche, c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.id_fiche=" + numFiche +";";
+        Statement statement = null;
+
+        try {
+            statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()){
+
+                fiche = new Fiche(result.getString(1),result.getString(2), result.getString(3));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fiche;
+    }
+
+    public  ObservableList<EtatFiche> getEtatFiche(int numFiche){
+
+        ObservableList<EtatFiche> etatFicheData = FXCollections.observableArrayList();
+
+        User user = Context.getInstance().getUser();
+
+        String sql = "SELECT c.libelle, a.date FROM etat_de_fiche as a inner join fiche as b on a.id_fiche=b.id_fiche inner join etat as c on a.id_etat=c.id_etat where b.fk_id_compte=" + user.getIdCompte() +" and a.id_fiche=" + numFiche +";";
+        Statement statement = null;
+
+        try {
+            statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()){
+
+                etatFicheData.add(new EtatFiche(result.getString(1),result.getString(2)));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return etatFicheData;
+    }
+
+    public  ObservableList<Frais> getFraisFiche(int numFiche){
+
+        ObservableList<Frais> fraisData = FXCollections.observableArrayList();
+
+        User user = Context.getInstance().getUser();
+
+        String sql = "SELECT qte_nuitee, montant_unitaire_nuitee, qte_repas_midi, montant_unitaire_repas_midi, qte_kilometrage, montant_unitaire_kilometrage FROM ppeslam.fiche WHERE id_fiche=" + numFiche +";";
+        Statement statement = null;
+
+        try {
+            statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()){
+
+                Nuit n = new Nuit(result.getInt(1), result.getInt(2));
+                Repas r = new Repas(result.getInt(3), result.getInt(4));
+                Kilometre k = new Kilometre(result.getInt(5), result.getInt(6));
+
+                fraisData.add(new Frais("Nuit", n.getqNuit(), n.puNuitProperty(), n.totalNuitProperty()));
+                fraisData.add(new Frais("Repas", r.getqRepas(), r.getPuRepas(), r.getTotalRepas()));
+                fraisData.add(new Frais("Kilometrage", k.getqKilometre(), k.getPuKilometre(), k.getTotalKilometre()));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fraisData;
+    }
+
+    public  ObservableList<AutreFrais> getAutreFraisFiche(int numFiche){
+
+        ObservableList<AutreFrais> autreFraisData = FXCollections.observableArrayList();
+
+        User user = Context.getInstance().getUser();
+
+        String sql = "SELECT libelle, date, montant, justificatif FROM autre_frais WHERE fk_id_fiche=" + numFiche +";";
+        Statement statement = null;
+
+        try {
+            statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()){
+
+                autreFraisData.add(new AutreFrais(result.getString(1),result.getString(2),result.getString(3),result.getString(4)));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return autreFraisData;
+    }
+
 
     //this method is call for set user info from DB in user Object
     public void infoUser(){

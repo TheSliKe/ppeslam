@@ -2,6 +2,7 @@ package com.ppe;
 
 import com.ppe.tabpane.Tabs;
 import com.ppe.user.User;
+import javafx.scene.Scene;
 
 public class Context {
 
@@ -16,6 +17,7 @@ public class Context {
     private User user = new User();
     private Tabs tabs = new Tabs();
     private Database database = new Database();
+
 
     //-----------------------------------------getters for all object---------------------------------------------------
     public User getUser() {

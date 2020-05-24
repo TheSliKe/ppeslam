@@ -6,5 +6,6 @@ module com.ppe {
 
     opens com.ppe to javafx.fxml;
     opens com.ppe.fiche to javafx.base;
+    opens com.ppe.fiche.FraisForfaitaire to javafx.base;
     exports com.ppe;
 }

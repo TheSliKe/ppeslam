@@ -6,11 +6,20 @@ import com.ppe.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
+import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 public class FichePage {
@@ -23,10 +32,9 @@ public class FichePage {
     @FXML
     private TableView<Fiche> ficheTable;
 
-    private ObservableList<Fiche> FicheData = FXCollections.observableArrayList();
-
     private User user;
     private Tabs tabs;
+
 
     //main init from app
     @FXML
@@ -35,9 +43,32 @@ public class FichePage {
         user = Context.getInstance().getUser();
         tabs = Context.getInstance().getTabs();
 
+
         List<Tab> tabList = tabs.getTabs();
         tabList.add(tab2);
         tabs.setTabs(tabList);
+
+        ficheTable.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+            @Override
+            public void handle(MouseEvent arg0) {
+
+                try {
+
+                    Tab t = FXMLLoader.load(this.getClass().getResource("FicheTab.fxml"));
+                    t.setId(ficheTable.getSelectionModel().getSelectedItem().getMatricule());
+                    t.setText("Fiche numero : " + ficheTable.getSelectionModel().getSelectedItem().getMatricule());
+
+                    tabs.getTabPane().getTabs().addAll(t);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println();
+
+            }
+
+        });
 
     }
 

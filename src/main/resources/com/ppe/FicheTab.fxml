@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Tab?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<Tab fx:id="tabfiche" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ppe.FicheTab" onSelectionChanged="#event">
+    <Pane prefHeight="775.0" prefWidth="1280.0">
+        <TableView fx:id="fraisFicheTable" layoutX="115.0" layoutY="168.0" prefHeight="411.0" prefWidth="364.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Frais">
+                    <cellValueFactory><PropertyValueFactory property="nom"/></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="75.0" text="Quantité" >
+                    <cellValueFactory><PropertyValueFactory property="quantite"/></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="122.0" text="Montant Unitaire" >
+                    <cellValueFactory><PropertyValueFactory property="prixUnitaire"/></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn prefWidth="90.0" text="Total" >
+                    <cellValueFactory><PropertyValueFactory property="total"/></cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+        <Text layoutX="115.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frais forfaitaires"
+              wrappingWidth="138.673828125">
+            <font>
+                <Font name="Arial" size="18.0"/>
+            </font>
+        </Text>
+        <TableView fx:id="autreFraisTable" layoutX="662.0" layoutY="168.0" prefHeight="411.0" prefWidth="516.0">
+            <columns>
+                <TableColumn prefWidth="132.0" text="Libelle" >
+                    <cellValueFactory><PropertyValueFactory property="libelle"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="92.0" text="Date" >
+                    <cellValueFactory><PropertyValueFactory property="date"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="114.0" text="Montant" >
+                    <cellValueFactory><PropertyValueFactory property="montant"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn minWidth="3.0" prefWidth="177.0" text="Justificatif">
+                    <cellValueFactory><PropertyValueFactory property="justificatif"/></cellValueFactory>
+                </TableColumn>
+            </columns></TableView>
+        <Text layoutX="662.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autre frais"
+              wrappingWidth="138.673828125">
+            <font>
+                <Font name="Arial" size="18.0"/>
+            </font>
+        </Text>
+        <Text layoutX="115.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero de fiche : ">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Text>
+        <Text fx:id="numFiche" layoutX="231.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Text>
+        <TableView fx:id="etatFicheTable" layoutX="274.0" layoutY="14.0" prefHeight="119.0" prefWidth="209.0">
+            <columns>
+                <TableColumn prefWidth="104.0" text="Etat" >
+                    <cellValueFactory><PropertyValueFactory property="etat"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="103.0" text="Date" >
+                    <cellValueFactory><PropertyValueFactory property="date"/></cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </Pane>
+</Tab>
