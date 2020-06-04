@@ -7,13 +7,31 @@
 <?import javafx.scene.layout.*?>
 
 <Tab fx:id="tab4" text="Saisie des Frais" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ppe.SaisieFrais" onSelectionChanged="#event">
-    <AnchorPane prefHeight="775.0" prefWidth="1280.0">
-        <children>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                <children>
+    <content>
+        <Pane prefHeight="775.0" prefWidth="1280.0">
+            <children>
+                <RadioButton onAction="#newFiche" fx:id="newFiche" layoutX="280.0" layoutY="57.0" mnemonicParsing="false" text="Nouvelle fiche" />
+                <RadioButton onAction="#existFiche" fx:id="existFiche" layoutX="92.0" layoutY="57.0" mnemonicParsing="false" text="Fiche existante" />
 
-                </children>
-            </AnchorPane>
-        </children>
-    </AnchorPane>
+                <ChoiceBox fx:id="ficheList" disable="true" layoutX="66.0" layoutY="81.0" prefWidth="150.0" />
+
+                <RadioButton onAction="#fraisForfait" fx:id="fraisForfait" layoutX="91.0" layoutY="199.0" mnemonicParsing="false" text="Frais forfaitaire" />
+                <RadioButton onAction="#autreFrais" fx:id="autreFrais" layoutX="424.0" layoutY="199.0" mnemonicParsing="false" text="Autre Frais" />
+
+                <TextField fx:id="Forfait1" disable="true" layoutX="62.0" layoutY="254.0" promptText="Quantité nuit" />
+                <TextField fx:id="Forfait2" disable="true" layoutX="61.0" layoutY="304.0" promptText="Quantité repas" />
+                <TextField fx:id="Forfait3" disable="true" layoutX="61.0" layoutY="353.0" promptText="Quantité kilometre" />
+                <TextField fx:id="Forfait4" disable="true" layoutX="222.0" layoutY="255.0" promptText="Prix unitaire" />
+                <TextField fx:id="Forfait5" disable="true" layoutX="221.0" layoutY="305.0" promptText="Prix unitaire" />
+                <TextField fx:id="Forfait6" disable="true" layoutX="221.0" layoutY="354.0" promptText="Prix unitaire" />
+
+                <TextField fx:id="autre1" disable="true" layoutX="427.0" layoutY="254.0" promptText="Date (AAAA-MM-JJ)" />
+                <TextField fx:id="autre2" disable="true" layoutX="608.0" layoutY="254.0" promptText="Libelle" />
+                <TextField fx:id="autre3" disable="true" layoutX="427.0" layoutY="293.0" promptText="Montant" />
+                <TextField fx:id="autre4" disable="true" layoutX="608.0" layoutY="293.0" promptText="Justificatif" />
+
+                <Button onAction="#send" layoutX="922.0" layoutY="53.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="153.0" text="Envoyer" />
+            </children>
+        </Pane>
+    </content>
 </Tab>

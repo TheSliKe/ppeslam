@@ -42,8 +42,10 @@ public class FicheTab {
 
             etatFicheTable.getItems().clear();
             etatFicheTable.getItems().addAll(Context.getInstance().getDatabase().getEtatFiche(Integer.parseInt(numberOnly)));
+
             fraisFicheTable.getItems().clear();
             fraisFicheTable.getItems().addAll(Context.getInstance().getDatabase().getFraisFiche(Integer.parseInt(numberOnly)));
+
             autreFraisTable.getItems().clear();
             autreFraisTable.getItems().addAll(Context.getInstance().getDatabase().getAutreFraisFiche(Integer.parseInt(numberOnly)));
 

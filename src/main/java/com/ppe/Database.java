@@ -279,7 +279,7 @@ public class Database {
         return fraisData;
     }
 
-    public  ObservableList<AutreFrais> getAutreFraisFiche(int numFiche){
+    public ObservableList<AutreFrais> getAutreFraisFiche(int numFiche){
 
         ObservableList<AutreFrais> autreFraisData = FXCollections.observableArrayList();
 
@@ -306,6 +306,144 @@ public class Database {
         return autreFraisData;
     }
 
+    public ObservableList<String> getFicheList(){
+
+        ObservableList<String> ficheListData = FXCollections.observableArrayList();
+
+        User user = Context.getInstance().getUser();
+
+        String sql = "SELECT id_fiche FROM fiche WHERE fk_id_compte=" + user.getIdCompte() +";";
+        Statement statement = null;
+
+        try {
+            statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()){
+
+                ficheListData.add(result.getString(1));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ficheListData;
+    }
+
+
+    public void sendFraisForfait(String matricule, String qNuit, String qRepas, String qKilometre, String puNuit, String puRepas, String puKilometre){
+
+        System.out.println(matricule + " " + qNuit + " " + puNuit + " " +qRepas + " " + puRepas+ " " + qKilometre + " " + puKilometre);
+
+        String sql = "SELECT qte_nuitee, montant_unitaire_nuitee, qte_repas_midi, montant_unitaire_repas_midi, qte_kilometrage, montant_unitaire_kilometrage FROM fiche WHERE id_fiche=" + matricule +";";
+        Statement statement = null;
+
+        try {
+            statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()){
+
+               System.out.println(result.getString(1)+result.getString(2)+result.getString(3)+result.getString(4)+result.getString(5)+result.getString(6));
+
+                String sql2 = "UPDATE fiche SET qte_nuitee=?, montant_unitaire_nuitee=?, qte_repas_midi=?, montant_unitaire_repas_midi=?, qte_kilometrage=?, montant_unitaire_kilometrage=? WHERE id_fiche=?";
+
+                PreparedStatement statement2 = conn.prepareStatement(sql2);
+                statement2.setInt(1, result.getInt(1) + Integer.valueOf(qNuit));
+                statement2.setInt(2, result.getInt(2) + Integer.valueOf(puNuit));
+                statement2.setInt(3, result.getInt(3) + Integer.valueOf(qRepas));
+                statement2.setInt(4, result.getInt(4) + Integer.valueOf(puRepas));
+                statement2.setInt(5, result.getInt(5) + Integer.valueOf(qKilometre));
+                statement2.setInt(6, result.getInt(6) + Integer.valueOf(puKilometre));
+                statement2.setInt(7, Integer.valueOf(matricule));
+
+                int rowsUpdated = statement2.executeUpdate();
+                System.out.println(rowsUpdated);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    public void sendAutreFrais(String matricule, String date, String libelle, String montant, String justificatif){
+
+        System.out.println(matricule + date + libelle + montant + justificatif);
+        try {
+            String sql = "INSERT INTO autre_frais (date, libelle, montant, justificatif, fk_id_fiche) VALUES (?, ?, ?, ?, ?)";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, date);
+            statement.setString(2, libelle);
+            statement.setInt(3, Integer.valueOf(montant));
+            statement.setString(4, justificatif);
+            statement.setInt(5, Integer.valueOf(matricule));
+
+            int rowsInserted = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int createFiche(){
+
+        User user = Context.getInstance().getUser();
+
+        try {
+            String sql = "INSERT INTO fiche (fk_id_compte) VALUES (?)";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, user.getIdCompte());
+
+            int rowsInserted = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        int id = 0;
+        String sql = "SELECT LAST_INSERT_ID();";
+        Statement statement = null;
+
+        try {
+            statement = conn.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()){
+
+                id = result.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String sql2 = "INSERT INTO etat_de_fiche (date, id_fiche, id_etat) VALUES (curdate(), ?, 1)";
+
+            PreparedStatement statement2 = conn.prepareStatement(sql2);
+            statement2.setInt(1, id);
+
+            int rowsInserted = statement2.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
+
+    }
 
     //this method is call for set user info from DB in user Object
     public void infoUser(){
